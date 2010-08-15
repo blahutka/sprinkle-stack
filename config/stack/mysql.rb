@@ -15,6 +15,7 @@ package :mysql_driver, :provides => :ruby_database_driver do
   
   verify do
     has_gem 'mysql'
+    ruby_can_load 'mysql'
   end
   
   requires :ruby_enterprise

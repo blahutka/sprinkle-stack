@@ -1,7 +1,7 @@
 $:<< File.join(File.dirname(__FILE__), 'stack')
 
 # Require the stack base
-%w(essential git svn ruby_enterprise memcached postgresql mysql gemrc).each do |lib|
+%w(essential goodies git scm ruby_enterprise memcached databases gemrc imagemagick).each do |lib|
   require lib
 end
 
@@ -22,15 +22,20 @@ require 'nginx'
 # Take what you want, leave what you don't
 # Build up your own and strip down your server until you get it right. 
 policy :stack, :roles => :app do
+  requires :goodies                 # Various utilities
+  requires :git                     # Install git 
   requires :gemrc                   # Install a custom gemrc
   requires :htop                    # Better top
+  requires :app_dir                 # Make the /u directory for applications
   requires :webserver               # Apache or Nginx
   requires :appserver               # Passenger
   requires :ruby_enterprise         # Ruby Enterprise edition
-  requires :database                # MySQL or Postgres, also installs rubygems for each
-  requires :scm                     # Git
+  requires :databases               # MySQL or Postgres, also installs rubygems for each
+  requires :scm                     # Subversion or Mercurial
   requires :memcached               # Memcached
   requires :libmemcached            # Libmemcached
+  requires :imagemagick             # Imagemagick
+  requires :rails                   # RubyOnRails
 end
 
 deployment do

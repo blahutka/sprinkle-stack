@@ -14,3 +14,16 @@ package :htop do
   end
 end
 
+
+package :app_dir do
+  noop do
+    pre :install, 'mkdir -p /u'
+    pre :install, 'chown -R deploy:deploy /u'
+    pre :install, 'chmod -R ug=rwx /u'
+  end
+
+  verify do
+    has_directory '/u'
+  end
+
+end
