@@ -23,6 +23,7 @@ require 'nginx'
 # Build up your own and strip down your server until you get it right. 
 policy :stack, :roles => :app do
   requires :gemrc                   # Install a custom gemrc
+  requires :htop                    # Better top
   requires :webserver               # Apache or Nginx
   requires :appserver               # Passenger
   requires :ruby_enterprise         # Ruby Enterprise edition
