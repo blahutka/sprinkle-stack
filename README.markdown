@@ -55,6 +55,12 @@ or
 * MySQL (Apt) or PostgreSQL (Apt)
 * MySQL or PostgreSQL ruby database drivers (Rubygem)
 * Git (Apt)
+* MySQL or Mercurial
+* Rails (version 2.3.8)
+* Imagemagick libraries
+* A .gemrc that prevents ri/rdocs to be created and setups sources
+* Various Sysadmin goodies like Netdiag (trafshow), Fish Shell, Z Shell, wget, vim etc
+* Sets up a /u directory where your Rails apps will be deployed
 
 ## Requirements
 * Ruby

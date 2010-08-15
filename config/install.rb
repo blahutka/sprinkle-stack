@@ -30,7 +30,7 @@ policy :stack, :roles => :app do
   requires :webserver               # Apache or Nginx
   requires :appserver               # Passenger
   requires :ruby_enterprise         # Ruby Enterprise edition
-  requires :databases               # MySQL or Postgres, also installs rubygems for each
+  requires :database                # MySQL or Postgres, also installs rubygems for each
   requires :scm                     # Subversion or Mercurial
   requires :memcached               # Memcached
   requires :libmemcached            # Libmemcached
