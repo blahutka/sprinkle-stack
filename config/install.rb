@@ -1,7 +1,7 @@
 $:<< File.join(File.dirname(__FILE__), 'stack')
 
 # Require the stack base
-%w(essential goodies git scm ruby_enterprise memcached databases gemrc imagemagick).each do |lib|
+%w(essential goodies git scm ruby_enterprise memcached databases gemrc imagemagick rails).each do |lib|
   require lib
 end
 
