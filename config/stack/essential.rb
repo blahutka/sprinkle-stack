@@ -5,3 +5,12 @@ package :build_essential do
     pre :install, 'apt-get upgrade'
   end
 end
+
+package :htop do
+  apt 'htop'
+
+  verify do
+    has_executable 'htop'
+  end
+end
+
