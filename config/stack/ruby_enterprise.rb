@@ -1,11 +1,11 @@
 package :ruby_enterprise do
   description 'Ruby Enterprise Edition'
-  version '1.8.7-2010.01'
+  version '1.8.7-2010.02'
   REE_PATH = "/usr/local/ruby-enterprise"
 
   binaries = %w(erb gem irb rackup rails rake rdoc ree-version ri ruby testrb)
-  source "http://rubyforge.org/frs/download.php/68719/ruby-enterprise-#{version}.tar.gz" do
-    custom_install 'sudo ./installer --auto=/usr/local/ruby-enterprise'
+  source "http://rubyforge.org/frs/download.php/71096/ruby-enterprise-#{version}.tar.gz" do
+    custom_install 'sudo ./installer --no-dev-docs --auto=/usr/local/ruby-enterprise'
     binaries.each {|bin| post :install, "ln -s #{REE_PATH}/bin/#{bin} /usr/local/bin/#{bin}" }
   end
 
