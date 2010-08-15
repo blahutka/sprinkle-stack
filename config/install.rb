@@ -24,17 +24,19 @@ require 'nginx'
 policy :stack, :roles => :app do
   requires :goodies                 # Various utilities
   requires :git                     # Install git 
-  requires :gemrc                   # Install a custom gemrc
   requires :webserver               # Apache or Nginx
   requires :appserver               # Passenger
   requires :ruby_enterprise         # Ruby Enterprise edition
   requires :database                # MySQL or Postgres, also installs rubygems for each
+  requires :ruby_database_driver
   requires :scm                     # Subversion or Mercurial
   requires :memcached               # Memcached
   requires :libmemcached            # Libmemcached
   requires :imagemagick             # Imagemagick
+  requires :gemrc                   # Install a custom gemrc
   requires :rails                   # RubyOnRails
   requires :deploy_user             # Deploy User
+  requires :deploy_keys             # Deploy Keys
 end
 
 deployment do

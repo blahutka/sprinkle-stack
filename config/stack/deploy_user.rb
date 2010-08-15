@@ -14,27 +14,31 @@ package :deploy_user do
     has_directory "/home/#{DEPLOY_USER}"
   end
 
-  optional :deploy_keys
-
 end
 
 package :deploy_keys do
 
+  remote_auth_file = "/home/#{DEPLOY_USER}/.ssh/authorized_keys"
+
   noop do
-    pre :install, "mkdir -p /home/#{DEPLOY_USER}/.ssh" 
+    pre :install, "mkdir -p /home/#{DEPLOY_USER}/.ssh"
+    pre :install, "touch #{remote_auth_file}"
   end
 
-  authorized_keys = Dir.glob("../../*.pub").map do |keyfile|
-    key = File.read(keyfile)
+  puts "** Reading key files ** #{Dir.glob("keydir/*.pub")}"
+  authorized_keys = Dir.glob(File.expand_path("../../../keydir",__FILE__)+"/*.pub").map do |keyfile|
+    File.read(keyfile)
   end.join("")
 
-  push_text authorized_keys, "/home/#{DEPLOY_USER}/.ssh/authorized_keys", :sudo => true do
-    pre :install, "mkdir -p /home/#{DEPLOY_USER}/.ssh"
-    pre :install, "tee /home/#{DEPLOY_USER}/.ssh/authorized_keys </dev/null"
-    post :install, "chmod 0600 /home/#{DEPLOY_USER}/.ssh/authorized_keys"
-  end
+  push_text authorized_keys, remote_auth_file, :sudo => true
   
   noop do
     post :install, "chown -R #{DEPLOY_USER}:#{DEPLOY_GROUP} /home/#{DEPLOY_USER}/.ssh/"
+    post :install, "chmod 0600 #{remote_auth_file}"
   end
+
+  verify do
+    file_contains remote_auth_file, "ssh-rsa"
+  end
+
 end

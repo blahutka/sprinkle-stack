@@ -15,4 +15,6 @@ package :goodies do
     has_file '/usr/bin/rkhunter'
     has_file '/usr/sbin/etckeeper'
   end
+   
+  requires :build_essential
 end

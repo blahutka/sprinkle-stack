@@ -12,15 +12,31 @@ package :nginx, :provides => :webserver do
   puts "** Nginx installed by passenger gem **"
   requires :passenger
   
-  push_text File.read(File.join(File.dirname(__FILE__), 'nginx', 'init.d')), "/etc/init.d/nginx", :sudo => true do
-    post :install, "sudo chmod +x /etc/init.d/nginx"
+  config_file = "/usr/local/nginx/conf/nginx.conf"
+  init_file = "/etc/init.d/nginx"
+
+  push_text File.read(File.join(File.dirname(__FILE__), 'nginx', 'nginx.conf')), config_file, :sudo => true do
+    pre :install, "touch #{config_file}" 
+    pre :install, "rm #{config_file}"
+    pre :install, "touch #{config_file}"
+    post :install, "sudo mkdir -p /usr/local/nginx/sites-available"
+    post :install, "sudo mkdir -p /usr/local/nginx/sites-enabled"
+    post :install, "sudo mkdir -p /var/log/nginx"
+  end
+
+  push_text File.read(File.join(File.dirname(__FILE__), 'nginx', 'init.d')), init_file, :sudo => true do
+    post :install, "sudo chmod +x #{init_file}"
     post :install, "sudo /usr/sbin/update-rc.d -f nginx defaults"
-    post :install, "sudo /etc/init.d/nginx start"
+    post :install, "sudo #{init_file} start"
   end
   
   verify do
     has_executable "/usr/local/nginx/sbin/nginx"
-    has_file "/etc/init.d/nginx"
+    has_file init_file
+    has_file config_file
+    has_directory "/usr/local/nginx/sites-enabled"
+    has_directory "/usr/local/nginx/sites-available"
+    has_directory "/var/log/nginx"
   end
 end
 
