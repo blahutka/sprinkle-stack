@@ -1,12 +1,11 @@
 package :goodies do
   description 'Different useful utilities required on the server'
   #Sysadmin tools
-  apt %w(netdiag htop vim wget sysstat fish zsh logrotate rkhunter etckeeper)
+  apt %w(fail2ban netdiag htop vim wget sysstat fish zsh logrotate rkhunter etckeeper)
 
   verify do
     has_file '/usr/sbin/trafshow'
     has_file '/usr/bin/htop'
-    has_file '/usr/bin/mc'
     has_file '/usr/bin/vim'
     has_file '/usr/bin/wget'
     has_file '/usr/bin/iostat'
