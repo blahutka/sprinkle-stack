@@ -10,7 +10,7 @@
 
 package :nginx, :provides => :webserver do
   puts "** Nginx installed by passenger gem **"
-  requires :passenger
+  requires :passenger, :deploy_user
   
   config_file = "/usr/local/nginx/conf/nginx.conf"
   init_file = "/etc/init.d/nginx"
