@@ -1,7 +1,7 @@
 $:<< File.join(File.dirname(__FILE__), 'stack')
 
 # Require the stack base
-%w(essential goodies git scm ruby_enterprise memcached databases gemrc imagemagick rails deploy_user).each do |lib|
+%w(essential goodies git scm ruby_enterprise memcached databases gemrc imagemagick rails deploy_user monitoring).each do |lib|
   require lib
 end
 
@@ -37,6 +37,7 @@ policy :stack, :roles => :app do
   requires :rails                   # RubyOnRails
   requires :deploy_user             # Deploy User
   requires :deploy_keys             # Deploy Keys
+  requires :monitoring              # Monit Monitoring
 end
 
 deployment do
